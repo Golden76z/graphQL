@@ -6,6 +6,7 @@ import Student from './elements/components/Student.jsx';
 import UserGreeting from './elements/components/UserGreeting.jsx';
 import List from './elements/components/List.jsx';
 import ProfilePicture from './elements/components/ProfilePicture.jsx';
+import NewComponent from './elements/components/NewComponent.jsx';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       <Card/>
       <Button/>
       <ProfilePicture/>
+      <NewComponent/>
       {/* <Student name="John Doe" age={30} isStudent={true}/>
       <Student name="Patrick" age={42} isStudent={false}/>
       <Student name="Squidward" age={50} isStudent={false}/>
