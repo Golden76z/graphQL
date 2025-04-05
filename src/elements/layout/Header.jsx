@@ -1,16 +1,23 @@
 // Conponent to display the header of the app
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+
 function Header() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <header>
-        <h1>graphQL</h1>
         <nav>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Services</a></li>
-            </ul>
+          <span>Welcome, {user?.name || 'Guest'}</span>
+          {/* {user && <button onClick={handleLogout}>Logout</button>} */}
+          <button onClick={handleLogout}>Logout</button>
         </nav>
-        <hr></hr>
     </header>
   );
 }
