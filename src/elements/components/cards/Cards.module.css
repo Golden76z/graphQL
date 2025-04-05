@@ -26,3 +26,11 @@
     font-family: Arial, sans-serif;
     color: rgb(65, 65, 65);
 }
+
+/* Animated cards */
+.motion_card {
+    padding: 20px;
+    /* border-radius: 8px; */
+    cursor: pointer;
+    color: white;
+}

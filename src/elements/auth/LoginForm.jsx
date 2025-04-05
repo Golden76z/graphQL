@@ -67,6 +67,8 @@ const LoginForm = () => {
         userId = userData['https://hasura.io/jwt/claims']['x-hasura-user-id'];
       }
       
+      console.log('TOKEN BEFORE LOGIN:', token);
+
       // Login the user with token and extracted user data
       login(token, { 
         id: userId,

@@ -3,20 +3,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './pages/LoginPage';
 import Profile from './pages/ProfilePage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Header from './elements/layout/Header'
+import Header from './elements/layout/Header';
+import AnimatedCardNavigation from './elements/components/cards/SwitchCards';
 
-// Protected route component
-const ProtectedRoute = ({ children }) => {
-  const { token } = useAuth();
-  
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return children;
-};
-
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
@@ -24,38 +19,50 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  // Get the token from local storage
   const token = localStorage.getItem('authToken');
-  
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     }
   };
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
-// Main App component
+// 🔐 Protected Route
+const ProtectedRoute = ({ children }) => {
+  const { token, user } = useAuth();
+  const isExpired = user?.jwt?.exp * 1000 < Date.now();
+
+  if (!token || isExpired) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
+
 function App() {
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
         <Router>
-          <Header/>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route 
-              path="/profile" 
+            <Route
+              path="/profile"
               element={
                 <ProtectedRoute>
-                  <Profile />
+                  <>
+                    <Header />
+                    <AnimatedCardNavigation />
+                    <Profile />
+                  </>
                 </ProtectedRoute>
-              } 
+              }
             />
             <Route path="/" element={<Navigate to="/profile" replace />} />
           </Routes>
