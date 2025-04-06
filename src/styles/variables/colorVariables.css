@@ -1,0 +1,37 @@
+/* ---------- Default theme colors ---------- */
+:root {
+    --color-bg: #ededed;
+    --color-text: #333333;
+    --color-primary: #2563eb;
+    --color-secondary: #d5dae1;
+    --color-accent: #d946ef;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #282727;
+        --color-text: #f5f5f5;
+        --color-primary: #3b82f6;
+        --color-secondary: #4b5563;
+        --color-accent: #e879f9;
+    }
+}
+
+/* ---------- Dark theme colors ---------- */
+[data-theme="dark"] {
+    --color-bg: #1a1a1a;
+    --color-text: #f5f5f5;
+    --color-primary: #3b82f6;
+    --color-secondary: #4b5563;
+    --color-accent: #e879f9;
+}
+
+/* ---------- Light theme colors ---------- */
+[data-theme="light"] {
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-primary: #2563eb;
+    --color-secondary: #e2e8f0;
+    --color-accent: #d946ef;
+}
+/* ---------------------------------------- */

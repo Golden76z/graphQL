@@ -1,1 +1,3 @@
+# Packages needed to run
 /node_modules
+yarn.lock

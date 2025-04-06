@@ -1,9 +1,10 @@
-// Conponent to display the header of the app
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 function Header() {
   const { user, logout } = useAuth();
+  const { darkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,11 +14,21 @@ function Header() {
 
   return (
     <header>
+      <div className=''>
         <nav>
           <span>Welcome, {user?.name || 'Guest'}</span>
-          {/* {user && <button onClick={handleLogout}>Logout</button>} */}
           <button onClick={handleLogout}>Logout</button>
+
+          <label className="theme-switch">
+            <input 
+              type="checkbox" 
+              checked={darkMode}
+              onChange={toggleTheme}
+            />
+            <span className="slider round"></span>
+          </label>
         </nav>
+      </div>
     </header>
   );
 }

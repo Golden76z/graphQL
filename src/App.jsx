@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './elements/auth/LoginForm';
 import Profile from './pages/ProfilePage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './elements/layout/Header';
 import AnimatedCardNavigation from './elements/components/cards/SwitchCards';
+import { ThemeProvider } from './contexts/ThemeContext'; // Add this import
 
 import {
   ApolloClient,
@@ -49,24 +50,34 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
+        <ThemeProvider> {/* Wrap with ThemeProvider */}
+          <Router>
+            <Routes>
+              <Route 
+                path="/login" 
+                element={
                   <>
                     <Header />
-                    <AnimatedCardNavigation />
-                    <Profile />
+                    <LoginPage />
                   </>
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/" element={<Navigate to="/profile" replace />} />
-          </Routes>
-        </Router>
+                } 
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <>
+                      <Header />
+                      <AnimatedCardNavigation />
+                      <Profile />
+                    </>
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/" element={<Navigate to="/profile" replace />} />
+            </Routes>
+          </Router>
+        </ThemeProvider>
       </AuthProvider>
     </ApolloProvider>
   );
