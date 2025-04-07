@@ -1,0 +1,68 @@
+@import url('../variables/color.css');
+@import url('../variables/font.css');
+@import url('../variables/sizes.css');
+
+/* ---------- Form Group Container ---------- */
+.formGroup {
+    margin-bottom: var(--space-lg);
+    position: relative;
+}
+
+/* ---------- Label Styles ---------- */
+.label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-tight);
+}
+
+/* ---------- Input Field Styles ---------- */
+.input {
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-md);
+    transition: all var(--transition-normal);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    height: var(--input-height);
+    font-family: var(--font-primary);
+}
+
+.input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.input::placeholder {
+    color: color-mix(in srgb, var(--color-text) 40%, transparent);
+    opacity: 1;
+}
+
+/* ---------- Error Message Styles ---------- */
+.inputError {
+    color: var(--color-accent);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-xs);
+    display: block;
+    animation: fadeIn var(--transition-normal) ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Error State Modifier ---------- */
+.inputErrorState {
+    border-color: var(--color-accent);
+}
+
+.inputErrorState:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 20%, transparent);
+}

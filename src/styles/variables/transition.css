@@ -1,0 +1,26 @@
+/* transitionsVariables.css */
+:root {
+    /* Transition durations */
+    --transition-duration-fast: 150ms;
+    --transition-duration-normal: 300ms;
+    --transition-duration-slow: 500ms;
+    
+    /* Transition timing functions */
+    --transition-easing: ease;
+    --transition-easing-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    
+    /* Transition property sets */
+    --transition-colors: 
+        background-color var(--transition-duration-normal) var(--transition-easing),
+        color var(--transition-duration-normal) var(--transition-easing),
+        border-color var(--transition-duration-normal) var(--transition-easing);
+    
+    --transition-all-colors: 
+        var(--transition-colors),
+        box-shadow var(--transition-duration-normal) var(--transition-easing),
+        fill var(--transition-duration-normal) var(--transition-easing),
+        stroke var(--transition-duration-normal) var(--transition-easing);
+    
+    --transition-transform: 
+        transform var(--transition-duration-normal) var(--transition-easing-bounce);
+}

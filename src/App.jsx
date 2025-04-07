@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './elements/auth/LoginForm';
+import LoginPage from './pages/LoginForm';
 import Profile from './pages/ProfilePage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './elements/layout/Header';

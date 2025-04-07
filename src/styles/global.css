@@ -1,0 +1,36 @@
+@import url('./variables/color.css');
+@import url('./variables/font.css');
+@import url('./variables/sizes.css');
+@import url('./variables/transition.css');
+
+:root {
+  background-color: var(--color-bg);
+  font-family: var(--font-primary);
+}
+
+/* Base transitions */
+html, body {
+    transition: var(--transition-all-colors);
+}
+
+/* All elements get color transitions */
+* {
+    transition: var(--transition-colors);
+}
+
+/* Form controls get enhanced transitions */
+input,
+button,
+textarea,
+select,
+[role="button"] {
+    transition: var(--transition-all-colors);
+}
+
+/* Elements with transforms get special easing */
+button:hover,
+[role="button"]:hover {
+    transition: 
+        var(--transition-all-colors),
+        var(--transition-transform);
+}

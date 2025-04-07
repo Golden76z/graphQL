@@ -1,0 +1,149 @@
+@import url('../variables/color.css');
+@import url('../variables/font.css');
+@import url('../variables/sizes.css');
+
+/* ---------- Layout Styles ---------- */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--color-secondary);
+    padding: var(--space-md);
+}
+
+.login-page-container {
+    width: 100%;
+    max-width: var(--max-width-xl);
+}
+
+/* ---------- Container Styles ---------- */
+.login-container {
+    max-width: var(--max-width-md);
+    margin: 0 auto;
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    background-color: var(--color-bg);
+    font-family: var(--font-primary);
+}
+
+/* ---------- Typography Styles ---------- */
+.login-container h2 {
+    text-align: right;
+    color: var(--color-text);
+    margin-bottom: var(--space-xl);
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+/* ---------- Form Elements ---------- */
+.form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-tight);
+}
+
+/* ---------- Input Styles ---------- */
+.form-control {
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-md);
+    transition: all var(--transition-normal);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    height: var(--input-height);
+    font-family: var(--font-primary);
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+/* ---------- Button Styles ---------- */
+.login-button {
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    height: var(--input-height);
+    margin-top: var(--space-md);
+    font-family: var(--font-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.login-button:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 80%, black);
+    transform: translateY(-1px);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+.login-button:disabled {
+    background-color: color-mix(in srgb, var(--color-primary) 40%, white);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ---------- Error Message Styles ---------- */
+.error-message {
+    color: var(--color-accent);
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-size-md);
+    text-align: center;
+    border-left: 3px solid var(--color-accent);
+    font-weight: var(--font-weight-medium);
+}
+
+/* ---------- Loading State ---------- */
+.loading-spinner {
+    width: var(--font-size-md);
+    height: var(--font-size-md);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-full);
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---------- Responsive Adjustments ---------- */
+@media (max-width: 480px) {
+    .login-container {
+        padding: var(--space-lg);
+    }
+    
+    .login-container h2 {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--space-lg);
+    }
+}

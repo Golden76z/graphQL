@@ -1,5 +1,5 @@
 import profilePic from '../../../assets/game_over.png';
-import styles from './Cards.module.css';
+import styles from '../../../styles/components/Cards.module.css';
 
 function Card() {
     return (

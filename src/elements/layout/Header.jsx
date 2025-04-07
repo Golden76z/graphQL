@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import styles from '../../styles/components/HeaderFooter.module.css';
 
 function Header() {
   const { user, logout } = useAuth();
@@ -13,19 +14,24 @@ function Header() {
   };
 
   return (
-    <header>
-      <div className=''>
-        <nav>
-          <span>Welcome, {user?.name || 'Guest'}</span>
-          <button onClick={handleLogout}>Logout</button>
+    <header className={styles.header}>
+      <div className={styles.navContainer}>
+        <nav className={styles.nav}>
+          <span className={styles.userGreeting}>Welcome, {user?.name || 'Guest'}</span>
+          <button 
+            onClick={handleLogout} 
+            className={styles.logoutButton}
+          >
+            Logout
+          </button>
 
-          <label className="theme-switch">
+          <label className={styles.themeSwitch}>
             <input 
               type="checkbox" 
               checked={darkMode}
               onChange={toggleTheme}
             />
-            <span className="slider round"></span>
+            <span className={styles.slider}></span>
           </label>
         </nav>
       </div>

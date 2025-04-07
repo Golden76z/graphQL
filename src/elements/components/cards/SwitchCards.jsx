@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import styles from './Cards.module.css';
+import styles from '../../../styles/components/Cards.module.css';
 
 const AnimatedCardNavigation = () => {
   const [activeCard, setActiveCard] = useState(1);

@@ -1,6 +1,6 @@
 import React from 'react';
+import styles from '../../styles/components/TextInput.module.css';
 
-// Component for the text inputs
 const TextInput = ({ 
   id, 
   label, 
@@ -12,17 +12,18 @@ const TextInput = ({
   error = null
 }) => {
   return (
-    <div className="form-group">
-      <label htmlFor={id}>{label}</label>
+    <div className={styles.formGroup}>
+      <label htmlFor={id} className={styles.label}>{label}</label>
       <input
         type={type}
         id={id}
+        className={`${styles.input} ${error ? styles.inputErrorState : ''}`}
         value={value}
         onChange={onChange}
         required={required}
         placeholder={placeholder}
       />
-      {error && <div className="input-error">{error}</div>}
+      {error && <div className={styles.inputError}>{error}</div>}
     </div>
   );
 };

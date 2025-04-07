@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth, parseJwt } from '../../contexts/AuthContext';
-import TextInput from '../components/TextInput/TextInput';
+import { useAuth, parseJwt } from '../contexts/AuthContext';
+import TextInput from '../elements/components/TextInput';
+import styles from '../styles/components/Login.module.css';  
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState('');
@@ -19,11 +20,8 @@ const LoginPage = () => {
     setResponseDetails(null);
     
     try {
-      // Create Basic Auth header
       const authString = `${identifier}:${password}`;
       const encodedAuth = btoa(authString);
-      
-      console.log('Attempting to log in with:', identifier);
       
       const response = await fetch('https://zone01normandie.org/api/auth/signin', {
         method: 'POST',
@@ -34,46 +32,34 @@ const LoginPage = () => {
       });
       
       const responseText = await response.text();
-      console.log('Response status:', response.status);
-      console.log('Response headers:', [...response.headers.entries()]);
-      console.log('Raw response body:', responseText);
       
       if (!response.ok) {
         throw new Error(response.status === 401 ? 'Invalid credentials' : `Login failed with status ${response.status}`);
       }
       
-      // Store raw response for debugging
       setResponseDetails({
         status: response.status,
         body: responseText
       });
       
-      // The API returns the JWT token directly as text, not as JSON
       const token = responseText.trim();
       
       if (!token) {
         throw new Error('Empty token received from server');
       }
       
-      // Parse the JWT to extract user info
       const userData = parseJwt(token);
-      console.log('Decoded JWT payload:', userData);
       
-      // Extract user ID from the JWT claims
       let userId = null;
       if (userData && userData['https://hasura.io/jwt/claims']) {
         userId = userData['https://hasura.io/jwt/claims']['x-hasura-user-id'];
       }
 
-      // Login the user with token and extracted user data
       login(token, { 
         id: userId,
-        // Add other useful user data from JWT if available
         jwt: userData
       });
       
-      console.log('User authenticated successfully. Navigating to profile page.');
-      // Redirect to profile page
       navigate('/profile');
       
     } catch (err) {
@@ -85,13 +71,13 @@ const LoginPage = () => {
   };
   
   return (
-    <div className="login-page">
-      <div className="login-page-container">
-        <div className="login-container">
+    <div className={styles['login-page']}>
+      <div className={styles['login-page-container']}>
+        <div className={styles['login-container']}>
           <h2>Login to Your Profile</h2>
           
           {error && (
-            <div className="error-message">
+            <div className={styles['error-message']}>
               {error}
             </div>
           )}
@@ -118,7 +104,7 @@ const LoginPage = () => {
             
             <button 
               type="submit" 
-              className="login-button" 
+              className={styles['login-button']} 
               disabled={isLoading}
             >
               {isLoading ? 'Logging in...' : 'Login'}
