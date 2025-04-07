@@ -4,8 +4,9 @@ import LoginPage from './pages/LoginForm';
 import Profile from './pages/ProfilePage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './elements/layout/Header';
+import WelcomeMessage from './elements/layout/WelcomeMessage'; // Import the new component
 import AnimatedCardNavigation from './elements/components/cards/SwitchCards';
-import { ThemeProvider } from './contexts/ThemeContext'; // Add this import
+import { ThemeProvider } from './contexts/ThemeContext';
 
 import {
   ApolloClient,
@@ -50,17 +51,18 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
-        <ThemeProvider> {/* Wrap with ThemeProvider */}
+        <ThemeProvider>
           <Router>
             <Routes>
-              <Route 
-                path="/login" 
+              <Route
+                path="/login"
                 element={
                   <>
                     <Header />
+                    <WelcomeMessage />
                     <LoginPage />
                   </>
-                } 
+                }
               />
               <Route
                 path="/profile"
@@ -68,6 +70,7 @@ function App() {
                   <ProtectedRoute>
                     <>
                       <Header />
+                      <WelcomeMessage />
                       <AnimatedCardNavigation />
                       <Profile />
                     </>

@@ -34,7 +34,7 @@
     --max-width-xl: 36rem;   /* 576px */
     
     /*-------------- Input Sizes --------------*/
-    --input-height: 3rem;    /* 48px */
+    --input-height: 1rem;    /* 48px */
     --input-padding-x: var(--space-sm);
     --input-padding-y: var(--space-xs);
     /*-----------------------------------------*/

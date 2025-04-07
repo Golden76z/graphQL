@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth, parseJwt } from '../contexts/AuthContext';
 import TextInput from '../elements/components/TextInput';
 import styles from '../styles/components/Login.module.css';  
+import Z01Description from '../elements/components/Zone01Description';
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState('');
@@ -72,10 +73,26 @@ const LoginPage = () => {
   
   return (
     <div className={styles['login-page']}>
-      <div className={styles['login-page-container']}>
+      {/* Left side - Description */}
+      <div className={styles['description-container']}>
+        <Z01Description/>
+      </div>
+      
+      {/* Right side - Video and Login */}
+      <div className={styles['right-side']}>
+        <div className={styles['video-container']}>
+        <iframe 
+            width="100%" 
+            height="100%"
+            src="https://www.youtube.com/embed/nBFEsXr5A4A?mute=1&loop=1&controls=0" 
+            frameBorder="0" 
+            allowFullScreen
+            title="Zone01 Video"
+          ></iframe>
+
+        </div>
+        
         <div className={styles['login-container']}>
-          <h2>Login to Your Profile</h2>
-          
           {error && (
             <div className={styles['error-message']}>
               {error}
@@ -85,7 +102,7 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit}>
             <TextInput
               id="identifier"
-              label="Username or Email"
+              label="Email ou Nom d'utilisateur"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               required={true}
@@ -94,7 +111,7 @@ const LoginPage = () => {
             
             <TextInput
               id="password"
-              label="Password"
+              label="Mot de passe"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -107,7 +124,12 @@ const LoginPage = () => {
               className={styles['login-button']} 
               disabled={isLoading}
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {isLoading ? (
+                <>
+                  <span className={styles['loading-spinner']}></span>
+                  Logging in...
+                </>
+              ) : 'Login'}
             </button>
           </form>
         </div>

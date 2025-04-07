@@ -20,22 +20,24 @@
 
 /* ---------- Input Field Styles ---------- */
 .input {
-    width: 100%;
+    width: 90%;
     padding: var(--input-padding-y) var(--input-padding-x);
-    border: 1px solid var(--color-secondary);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-md);
+    border: none; /* Remove all borders */
+    border-bottom: 1px solid var(--color-secondary); /* Only show bottom border */
+    border-radius: 0; /* Remove border radius */
+    font-size: var(--font-size-sm);
     transition: all var(--transition-normal);
-    background-color: var(--color-bg);
+    background-color: transparent; /* Make background transparent */
     color: var(--color-text);
     height: var(--input-height);
     font-family: var(--font-primary);
 }
 
 .input:focus {
-    border-color: var(--color-primary);
+    border-bottom-color: var(--color-primary); /* Change only bottom border color */
     outline: none;
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    /* Optional: Add a subtle bottom border expansion effect */
+    border-bottom-width: 2px;
 }
 
 .input::placeholder {
@@ -59,10 +61,11 @@
 
 /* ---------- Error State Modifier ---------- */
 .inputErrorState {
-    border-color: var(--color-accent);
+    border-bottom-color: var(--color-accent); /* Only affect bottom border */
 }
 
 .inputErrorState:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 20%, transparent);
+    border-bottom-color: var(--color-accent);
+    /* Optional: Keep the focus effect consistent */
+    border-bottom-width: 2px;
 }

@@ -10,12 +10,21 @@
 
 /* Base transitions */
 html, body {
-    transition: var(--transition-all-colors);
+  transition: var(--transition-all-colors);
+  margin: 0 var(--margin-container); /* Horizontal margins only */
+}
+
+/* Main content container */
+.container {
+  width: 100%;
+  max-width: var(--max-width-xl);
+  margin: 0 auto;
+  padding: 0 var(--margin-base);
 }
 
 /* All elements get color transitions */
 * {
-    transition: var(--transition-colors);
+  transition: var(--transition-colors);
 }
 
 /* Form controls get enhanced transitions */
@@ -24,13 +33,29 @@ button,
 textarea,
 select,
 [role="button"] {
-    transition: var(--transition-all-colors);
+  transition: var(--transition-all-colors);
+  margin: 0 var(--margin-element); /* Horizontal margins */
 }
 
 /* Elements with transforms get special easing */
 button:hover,
 [role="button"]:hover {
-    transition: 
-        var(--transition-all-colors),
-        var(--transition-transform);
+  transition: 
+    var(--transition-all-colors),
+    var(--transition-transform);
+}
+
+/* Responsive margins */
+@media (max-width: 768px) {
+  :root, body {
+    margin: 0 var(--margin-base);
+  }
+  
+  .container {
+    padding: 0 var(--margin-element);
+  }
+}
+
+.custom-list p {
+  margin: 0.5em 0;
 }
