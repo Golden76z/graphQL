@@ -1,12 +1,10 @@
-import styles from './Button.module.css';
+import styles from '../../styles/components/Button.module.css'
 
-// Function to display a button
-function Button() {
-    const handleClick = () => console.log('Button clicked!');
-    const handleClick2 = (name) => console.log(`${name} clicked!`);
-
+function Button(props) {
     return (
-        <button onClick={() => handleClick2("Golden")} className={styles.button}>Click me</button>
+        <button onClick={props.Function} className={styles.button}>
+            {props.Name}
+        </button>
     );
 }
 

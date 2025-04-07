@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import Button from '../components/Button';
 import styles from '../../styles/components/HeaderFooter.module.css';
 
 function Header() {
@@ -20,12 +21,16 @@ function Header() {
           {/* Logo or brand could go here if needed */}
           <div className={styles.headerControls}>
             {user && (
-              <button
-                onClick={handleLogout}
-                className={styles.logoutButton}
-              >
-                Logout
-              </button>
+              <>
+                <button
+                  onClick={handleLogout}
+                  className={styles.logoutButton}
+                >
+                  Logout
+                </button>
+
+                <Button Function={handleLogout} Name="LogOut"/>
+              </>
             )}
             
             <label className={styles.themeSwitch}>
