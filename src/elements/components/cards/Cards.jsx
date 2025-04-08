@@ -1,14 +1,26 @@
-import profilePic from '../../../assets/game_over.png';
-import styles from '../../../styles/components/Cards.module.css';
+import styles from '../../../styles/components/Card.module.css';
+import PropTypes from 'prop-types';
 
-function Card() {
+// React card element for cursus informations
+function Card({Name = "Default", Number = "#0", Cursus = "", Start = "", End = ""}) {
     return (
-        <div className={styles.card}>
-            <img className={styles.card_image} src={profilePic} alt="card picture" height={150} width={150}/>
-            <h2 className={styles.card_title}>Test</h2>
-            <p className={styles.card_text}>This is a test paragraph for testing purposes</p>
+        <div className={styles.card_container}>
+            <div className={styles.card}>
+                <h2 className={styles.card_title}>{Name} {Number}</h2>
+                {Cursus.length > 0 && <p className={styles.card_cursus}>in Cursus {Cursus}</p>}
+                <p className={styles.card_time}>{Start} {">"} {End}</p>
+            </div>
         </div>
     );
+}
+
+// Defining the type of variables we take on card elements
+Card.PropTypes = {
+    Name:   PropTypes.string,
+    Number: PropTypes.string,
+    Cursus: PropTypes.string,
+    Start:  PropTypes.string,
+    End:    PropTypes.string,
 }
 
 export default Card;

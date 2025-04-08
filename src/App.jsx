@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginForm';
-import Profile from './pages/ProfilePage';
+import ProfilePage from './pages/ProfilePage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './elements/layout/Header';
 import WelcomeMessage from './elements/layout/WelcomeMessage'; // Import the new component
-import AnimatedCardNavigation from './elements/components/cards/SwitchCards';
+// import AnimatedCardNavigation from './elements/components/cards/SwitchCards';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 import {
@@ -71,8 +71,8 @@ function App() {
                     <>
                       <Header />
                       <WelcomeMessage />
-                      <AnimatedCardNavigation />
-                      <Profile />
+                      {/* <AnimatedCardNavigation /> */}
+                      <ProfilePage />
                     </>
                   </ProtectedRoute>
                 }

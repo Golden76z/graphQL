@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - (2 * var(--space-xl)));
+    margin: 0 var(--space-xl);
+    padding: 0;
+    gap: 0; /* No gap between items */
+    align-content: flex-start; /* Prevents vertical squishing */
+    min-height: 100vh; /* Ensures container takes full height */
+}
+
+.card_container {
+    flex: 1 1 25%; /* 4 cards per row */
+    min-width: 250px;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+    transition: 
+        transform var(--transition-duration-normal) var(--transition-easing),
+        margin-bottom var(--transition-duration-fast) ease;
+    margin-bottom: var(--space-md); /* Added margin bottom */
+}
+
+.card {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    padding: var(--space-md);
+    height: 70%;
+    transition: 
+        var(--transition-colors),
+        transform var(--transition-duration-normal) var(--transition-easing);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    border: none;
+    outline: none;
+    transform-origin: center;
+    margin: 0;
+}
+
+.card:hover {
+    background-color: var(--color-accent);
+    color: white;
+    cursor: pointer;
+    transform: scale(1.01);
+    z-index: 2;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Responsive adjustments with proper spacing */
+@media (max-width: 1200px) {
+    .card_container {
+        flex: 1 1 33.333%;
+        margin-bottom: var(--space-md);
+    }
+}
+
+@media (max-width: 900px) {
+    .card_container {
+        flex: 1 1 50%;
+        margin-bottom: var(--space-md);
+    }
+}
+
+@media (max-width: 600px) {
+    .card_container {
+        flex: 1 1 100%;
+        margin-bottom: var(--space-md);
+    }
+}   
