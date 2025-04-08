@@ -22,13 +22,6 @@ function Header() {
           <div className={styles.headerControls}>
             {user && (
               <>
-                <button
-                  onClick={handleLogout}
-                  className={styles.logoutButton}
-                >
-                  Logout
-                </button>
-
                 <Button Function={handleLogout} Name="LogOut"/>
               </>
             )}

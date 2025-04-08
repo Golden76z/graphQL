@@ -22,30 +22,43 @@
 .input {
     width: 90%;
     padding: var(--input-padding-y) var(--input-padding-x);
-    border: none; /* Remove all borders */
-    border-bottom: 1px solid var(--color-secondary); /* Only show bottom border */
-    border-radius: 0; /* Remove border radius */
+    border: none;
+    border-bottom: 1px solid var(--color-secondary);
+    border-radius: 0;
     font-size: var(--font-size-sm);
     transition: all var(--transition-normal);
-    background-color: transparent; /* Make background transparent */
+    background-color: transparent; /* Default transparent */
     color: var(--color-text);
     height: var(--input-height);
     font-family: var(--font-primary);
 }
 
-.input:focus {
-    border-bottom-color: var(--color-primary); /* Change only bottom border color */
-    outline: none;
-    /* Optional: Add a subtle bottom border expansion effect */
-    border-bottom-width: 2px;
+/* Style for pre-filled inputs (when page loads with value) */
+.input[value]:not([value=""]),
+.input:-webkit-autofill {
+    background-color: var(--color-bg-secondary); /* Your desired filled color */
 }
 
+/* Style for when user is typing (keeps transparent) */
+.input:focus {
+    border-bottom-color: var(--color-primary);
+    outline: none;
+    border-bottom-width: 2px;
+    background-color: transparent; /* Maintain transparent while typing */
+}
+
+/* Style for programmatically changed values */
+.input.dirty {
+    background-color: var(--color-bg-secondary);
+}
+
+/* Placeholder style */
 .input::placeholder {
     color: color-mix(in srgb, var(--color-text) 40%, transparent);
     opacity: 1;
 }
 
-/* ---------- Error Message Styles ---------- */
+/* ---------- Error States ---------- */
 .inputError {
     color: var(--color-accent);
     font-size: var(--font-size-sm);
@@ -54,18 +67,16 @@
     animation: fadeIn var(--transition-normal) ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ---------- Error State Modifier ---------- */
 .inputErrorState {
-    border-bottom-color: var(--color-accent); /* Only affect bottom border */
+    border-bottom-color: var(--color-accent);
 }
 
 .inputErrorState:focus {
     border-bottom-color: var(--color-accent);
-    /* Optional: Keep the focus effect consistent */
     border-bottom-width: 2px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }

@@ -4,6 +4,7 @@ import { useAuth, parseJwt } from '../contexts/AuthContext';
 import TextInput from '../elements/components/TextInput';
 import styles from '../styles/components/Login.module.css';  
 import Z01Description from '../elements/components/Zone01Description';
+import Button from '../elements/components/Button';
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState('');
@@ -119,18 +120,7 @@ const LoginPage = () => {
               placeholder="Enter your password"
             />
             
-            <button 
-              type="submit" 
-              className={styles['login-button']} 
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <span className={styles['loading-spinner']}></span>
-                  Logging in...
-                </>
-              ) : 'Login'}
-            </button>
+            <Button Name={"Se connecter"}/>
           </form>
         </div>
       </div>
