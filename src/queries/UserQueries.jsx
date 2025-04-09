@@ -1,67 +1,85 @@
 import { gql } from '@apollo/client';
 
-// Query to fetch user name information
-export const GET_USER_INFO = gql`
-  query GetUserInfo {
+export const TEST_QUERY = gql`
+  query TestQuery {
     user {
-      lastName
-      firstName
+      id
+      login
     }
   }
 `;
 
-// Query to fetch user level from events
-export const GET_USER_LEVEL = gql`
-  query GetUserLevel {
+export const FULL_STUDENT_STATS_QUERY = gql`
+  query FullStudentStatsWithAttrs {
     user {
-      events(where: {event: {path: {_ilike: "/rouen/div-01"}}}) {
-        level
-      }
-    }
-  }
-`;
-
-// Query to fetch all XP transactions
-export const GET_USER_XP_TRANSACTIONS = gql`
-  query GetUserXPTransactions {
-    transaction(
-      where: {type: {_eq: "xp"}, event: {path: {_ilike: "/rouen/div-01"}}}, 
-      order_by: {id: asc}
-    ) {
-      amount
+      id
+      login
+      attrs
+      auditRatio
+      totalUp
+      totalDown
+      totalUpBonus
+      avatarUrl
+      campus
       createdAt
-    }
-  }
-`;
-
-// Query to get sum of "down" transactions
-export const GET_XP_DOWN = gql`
-  query GetXPDown {
-    transaction_aggregate(
-      where: {type: {_eq: "down"}, event: {path: {_ilike: "/rouen/div-01"}}}, 
-      order_by: {id: asc}
-    ) {
-      aggregate {
-        sum {
-          amount
+      public {
+        firstName
+        lastName
+        profile
+      }
+      transactions_aggregate(where: {type: {_eq: "xp"}}) {
+        aggregate {
+          sum {
+            amount
+          }
         }
+      }
+      progresses_aggregate(where: {isDone: {_eq: true}}) {
+        aggregate {
+          count
+        }
+      }
+      skills: progresses(where: {isDone: {_eq: true}}) {
+        object {
+          name
+          type
+        }
+        updatedAt
+      }
+      audits_aggregate {
+        aggregate {
+          count
+        }
+      }
+      xps {
+        amount
       }
     }
   }
 `;
 
-// Query to get sum of "up" transactions
-export const GET_XP_UP = gql`
-  query GetXPUp {
-    transaction_aggregate(
-      where: {type: {_eq: "up"}, event: {path: {_ilike: "/rouen/div-01"}}}, 
-      order_by: {id: asc}
-    ) {
-      aggregate {
-        sum {
-          amount
-        }
-      }
-    }
-  }
-`;
+export const extractUserData = (data) => {
+  if (!data || !data.user) return null;
+  
+  const user = data.user;
+  return {
+    id: user.id,
+    login: user.login,
+    firstName: user.public?.firstName || '',
+    lastName: user.public?.lastName || '',
+    avatarUrl: user.avatarUrl,
+    campus: user.campus,
+    createdAt: user.createdAt,
+    auditRatio: user.auditRatio,
+    totalXP: user.transactions_aggregate?.aggregate?.sum?.amount || 0,
+    totalProjects: user.progresses_aggregate?.aggregate?.count || 0,
+    skills: user.skills?.map(skill => ({
+      name: skill.object?.name,
+      type: skill.object?.type,
+      updatedAt: skill.updatedAt
+    })) || [],
+    totalAudits: user.audits_aggregate?.aggregate?.count || 0,
+    profile: user.public?.profile || '',
+    // Add other fields as needed
+  };
+};

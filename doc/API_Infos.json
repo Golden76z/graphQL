@@ -1,0 +1,1094 @@
+{
+    "data": {
+        "__type": {
+            "fields": [
+                {
+                    "name": "audit",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "audit_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "audit_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "audit_by_pk",
+                    "type": {
+                        "name": "audit",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "audit_private",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "event",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "event_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "event_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "event_by_pk",
+                    "type": {
+                        "name": "event",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "event_user",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "event_user_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "event_user_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "event_user_by_pk",
+                    "type": {
+                        "name": "event_user",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "event_user_view",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "event_user_view_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "event_user_view_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "group",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "group_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "group_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "group_by_pk",
+                    "type": {
+                        "name": "group",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "group_user",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "group_user_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "group_user_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "group_user_by_pk",
+                    "type": {
+                        "name": "group_user",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "label",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "label_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "label_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "label_by_pk",
+                    "type": {
+                        "name": "label",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "label_user",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "label_user_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "label_user_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "label_user_by_pk",
+                    "type": {
+                        "name": "label_user",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "markdown",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "markdown_by_pk",
+                    "type": {
+                        "name": "markdown",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "match",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "match_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "match_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "match_by_pk",
+                    "type": {
+                        "name": "match",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "object",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "object_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "object_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "object_availability",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "object_availability_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "object_availability_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "object_availability_by_pk",
+                    "type": {
+                        "name": "object_availability",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "object_by_pk",
+                    "type": {
+                        "name": "object",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "object_child",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "object_child_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "object_child_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "object_child_by_pk",
+                    "type": {
+                        "name": "object_child",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "object_type",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "object_type_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "object_type_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "object_type_by_pk",
+                    "type": {
+                        "name": "object_type",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "path",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "path_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "path_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "path_archive",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "path_archive_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "path_archive_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "path_archive_by_pk",
+                    "type": {
+                        "name": "path_archive",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "path_by_pk",
+                    "type": {
+                        "name": "path",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "progress",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "progress_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "progress_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "progress_by_path_view",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "progress_by_path_view_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "progress_by_path_view_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "progress_by_pk",
+                    "type": {
+                        "name": "progress",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "record",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "record_by_pk",
+                    "type": {
+                        "name": "record",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "record_public_view",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "record_public_view_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "record_public_view_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "record_type",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "record_type_by_pk",
+                    "type": {
+                        "name": "record_type",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "registration",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "registration_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "registration_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "registration_by_pk",
+                    "type": {
+                        "name": "registration",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "registration_user",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "registration_user_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "registration_user_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "registration_user_by_pk",
+                    "type": {
+                        "name": "registration_user",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "registration_user_view",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "registration_user_view_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "registration_user_view_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "result",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "result_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "result_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "result_by_pk",
+                    "type": {
+                        "name": "result",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "role",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "role_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "role_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "role_by_pk",
+                    "type": {
+                        "name": "role",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "task",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "task_by_pk",
+                    "type": {
+                        "name": "task",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "timing",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "timings",
+                    "type": {
+                        "name": "timing",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "toad_campaign_games",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_campaign_games_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "toad_campaign_games_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_campaign_games_by_pk",
+                    "type": {
+                        "name": "toad_campaign_games",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "toad_campaigns",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_campaigns_by_pk",
+                    "type": {
+                        "name": "toad_campaigns",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "toad_games",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_games_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "toad_games_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_games_by_pk",
+                    "type": {
+                        "name": "toad_games",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "toad_session_game_results",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_session_game_results_by_pk",
+                    "type": {
+                        "name": "toad_session_game_results",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "toad_session_games",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_session_games_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "toad_session_games_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_session_games_by_pk",
+                    "type": {
+                        "name": "toad_session_games",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "toad_sessions",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_sessions_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "toad_sessions_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "toad_sessions_by_pk",
+                    "type": {
+                        "name": "toad_sessions",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "transaction",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "transaction_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "transaction_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "transaction_by_pk",
+                    "type": {
+                        "name": "transaction",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "transaction_type",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "transaction_type_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "transaction_type_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "transaction_type_by_pk",
+                    "type": {
+                        "name": "transaction_type",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "user",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "user_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "user_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "user_by_pk",
+                    "type": {
+                        "name": "user",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "user_public_view",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "user_role",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "user_role_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "user_role_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "user_role_by_pk",
+                    "type": {
+                        "name": "user_role",
+                        "kind": "OBJECT",
+                        "ofType": null
+                    }
+                },
+                {
+                    "name": "user_roles_view",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                },
+                {
+                    "name": "user_roles_view_aggregate",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": "user_roles_view_aggregate",
+                            "kind": "OBJECT"
+                        }
+                    }
+                },
+                {
+                    "name": "xp_view",
+                    "type": {
+                        "name": null,
+                        "kind": "NON_NULL",
+                        "ofType": {
+                            "name": null,
+                            "kind": "LIST"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

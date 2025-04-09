@@ -1,62 +1,122 @@
-import React, { useState, useContext, createContext } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
-// Create an auth context to manage user state throughout the app
-export const AuthContext = createContext(null);
+const parseJwt = (token) => {
+  try {
+    if (!token || typeof token !== 'string' || !token.includes('.')) {
+      console.error('Invalid token format');
+      return null;
+    }
+    
+    const base64Url = token.split('.')[1];
+    if (!base64Url) {
+      console.error('Could not extract payload from token');
+      return null;
+    }
+    
+    // Replace non-base64url chars and add padding if needed
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const paddedBase64 = base64.padEnd(base64.length + (4 - base64.length % 4) % 4, '=');
+    
+    // Decode the base64 string
+    try {
+      const jsonPayload = decodeURIComponent(
+        atob(paddedBase64)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (decodeError) {
+      console.error('Failed to decode token payload:', decodeError);
+      return null;
+    }
+  } catch (e) {
+    console.error('JWT parsing error:', e);
+    return null;
+  }
+};
+
+// Extract Hasura claims safely
+const getHasuraClaims = (decodedToken) => {
+  if (!decodedToken) return null;
+  return {
+    userId: decodedToken['https://hasura.io/jwt/claims']?.['x-hasura-user-id'],
+    role: decodedToken['https://hasura.io/jwt/claims']?.['x-hasura-default-role'],
+    allowedRoles: decodedToken['https://hasura.io/jwt/claims']?.['x-hasura-allowed-roles'] || []
+  };
+};
+
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // Initialize state from localStorage if available
-  const [token, setToken] = useState(localStorage.getItem('authToken') || null);
+  const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const initializeAuth = () => {
+      const storedToken = localStorage.getItem('authToken');
+      if (storedToken) {
+        try {
+          const decoded = parseJwt(storedToken);
+          if (!decoded || decoded.exp * 1000 < Date.now()) {
+            localStorage.removeItem('authToken');
+            return;
+          }
+          
+          setToken(storedToken);
+          setUser({
+            id: getHasuraClaims(decoded)?.userId || decoded.sub,
+            jwt: decoded,
+            claims: getHasuraClaims(decoded)
+          });
+        } catch (error) {
+          localStorage.removeItem('authToken');
+          console.error('Auth initialization error:', error);
+        }
+      }
+      setIsLoading(false);
+    };
+
+    initializeAuth();
+  }, []);
+
+  const login = (token, userData) => {
+    if (!token || typeof token !== 'string' || !token.includes('.')) {
+      throw new Error('Invalid token format');
+    }
   
-  // Console log to track AuthProvider initialization
-  console.log('AuthProvider initialized. Token exists:', !!token);
+    const decoded = parseJwt(token);
+    if (!decoded) throw new Error('Invalid token');
   
-  const login = (newToken, userData) => {
-    console.log('Login function called with token:', newToken ? 'Token exists' : 'No token');
-    localStorage.setItem('authToken', newToken);
-    setToken(newToken);
-    setUser(userData);
-    console.log('User logged in successfully. User data:', userData);
+    // Store exactly as received
+    localStorage.setItem('authToken', token.trim()); 
+    setToken(token);
+    setUser({
+      id: getHasuraClaims(decoded)?.userId || decoded.sub,
+      jwt: decoded,
+      claims: getHasuraClaims(decoded)
+    });
   };
-  
+
   const logout = () => {
-    console.log('Logout function called');
     localStorage.removeItem('authToken');
     setToken(null);
     setUser(null);
-    console.log('User logged out successfully');
   };
-  
+
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
-      {children}
+    <AuthContext.Provider value={{ 
+      token, 
+      user, 
+      isLoading, 
+      login, 
+      logout,
+      parseJwt // Export for components that need raw parsing
+    }}>
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 };
 
-// Hook to use auth context
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    console.error('useAuth must be used within an AuthProvider');
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
-
-// Function to decode JWT and extract user info
-export function parseJwt(token) {
-  try {
-    // Split the token into its three parts and decode the payload (middle part)
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-  } catch (e) {
-    console.error('Error parsing JWT token:', e);
-    return null;
-  }
-}
+export const useAuth = () => useContext(AuthContext);

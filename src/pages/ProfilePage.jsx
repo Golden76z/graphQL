@@ -1,6 +1,7 @@
 import Card from "../elements/components/cards/Cards";
 import styles from '../styles/components/Card.module.css'
 import GraphTimeline from "../elements/components/GraphTimeline";
+import UserStats from "../elements/graphs/UserStats";
 
 // React components for the profile page after loging in
 function ProfilePage() {
@@ -17,6 +18,8 @@ function ProfilePage() {
                     Cursus="Piscine" 
                     showAlternateTimelineText={true} 
                 />
+
+                <UserStats/>
             </div>
         </>
     );

@@ -9,11 +9,11 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --color-bg: #282727;
+        --color-bg: #1b1919;
         --color-text: #d1d1d1;
         --color-primary: #5a8cdd;
-        --color-secondary: #4b5563;
-        --color-accent: #6d3f9f;
+        --color-secondary: #6a5f8e;
+        --color-accent: #a74fbd;
     }
 }
 
@@ -28,10 +28,10 @@
 
 /* ---------- Light theme colors ---------- */
 [data-theme="light"] {
-    --color-bg: #282727;
+    --color-bg: #1b1919;
     --color-text: #d1d1d1;
     --color-primary: #5a8cdd;
-    --color-secondary: #4b5563;
-    --color-accent: #6d3f9f;
+    --color-secondary: #6a5f8e;
+    --color-accent: #a74fbd;
 }
 /* ---------------------------------------- */

@@ -7,6 +7,7 @@ import Header from './elements/layout/Header';
 import WelcomeMessage from './elements/layout/WelcomeMessage'; // Import the new component
 // import AnimatedCardNavigation from './elements/components/cards/SwitchCards';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { ApolloLink } from '@apollo/client';
 
 import {
   ApolloClient,
@@ -16,6 +17,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+// In App.jsx
 const httpLink = createHttpLink({
   uri: 'https://zone01normandie.org/api/graphql-engine/v1/graphql',
 });
@@ -25,20 +27,41 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : '', // No JSON parsing
     }
   };
 });
 
+// Add logging to debug the request
+const loggingLink = new ApolloLink((operation, forward) => {
+  console.log('GraphQL Request Headers:', operation.getContext().headers);
+  return forward(operation);
+});
+
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: loggingLink.concat(authLink.concat(httpLink)),
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
+  },
 });
 
 // 🔐 Protected Route
 const ProtectedRoute = ({ children }) => {
-  const { token, user } = useAuth();
-  const isExpired = user?.jwt?.exp * 1000 < Date.now();
+  const { token, user, isLoading } = useAuth();
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const isExpired = user?.exp * 1000 < Date.now();
 
   if (!token || isExpired) {
     return <Navigate to="/login" replace />;
