@@ -2,38 +2,41 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const parseJwt = (token) => {
   try {
-    if (!token || typeof token !== 'string' || !token.includes('.')) {
-      console.error('Invalid token format');
-      return null;
+    // Handle cases where token might be JSON stringified
+    let cleanToken = token;
+    if (token.startsWith('"') && token.endsWith('"')) {
+      cleanToken = token.slice(1, -1);
     }
-    
-    const base64Url = token.split('.')[1];
-    if (!base64Url) {
-      console.error('Could not extract payload from token');
-      return null;
+
+    // Verify basic JWT structure
+    const parts = cleanToken.split('.');
+    if (parts.length !== 3) {
+      console.warn('Token structure:', parts);
+      throw new Error('Invalid JWT structure');
     }
-    
-    // Replace non-base64url chars and add padding if needed
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const paddedBase64 = base64.padEnd(base64.length + (4 - base64.length % 4) % 4, '=');
-    
-    // Decode the base64 string
-    try {
-      const jsonPayload = decodeURIComponent(
-        atob(paddedBase64)
-          .split('')
-          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join('')
-      );
-      return JSON.parse(jsonPayload);
-    } catch (decodeError) {
-      console.error('Failed to decode token payload:', decodeError);
-      return null;
-    }
+
+    // Decode payload
+    const payload = JSON.parse(atob(parts[1]));
+    return payload;
   } catch (e) {
-    console.error('JWT parsing error:', e);
+    console.error('Token parsing failed:', {
+      error: e,
+      token: token.substring(0, 20) + '...' + token.substring(token.length - 20)
+    });
     return null;
   }
+};
+
+const login = (token) => {
+  const decoded = parseJwt(token);
+  if (!decoded) {
+    throw new Error('Invalid token');
+  }
+
+  // Store the clean token
+  localStorage.setItem('authToken', token);
+  setToken(token);
+  setUser(decoded);
 };
 
 // Extract Hasura claims safely

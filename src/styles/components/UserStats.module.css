@@ -1,65 +1,100 @@
 .statsContainer {
-    background: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rankCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border-radius: 8px;
+    color: white;
   }
   
   .avatarSection {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 1rem;
   }
   
   .avatar {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--primary);
+    border: 3px solid white;
   }
   
-  .userName {
-    margin: 10px 0 5px;
-    color: var(--text-primary);
+  .levelBadge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-align: center;
   }
   
-  .campus {
-    margin: 0;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+  .levelProgress {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    margin-top: 0.5rem;
+  }
+  
+  .levelProgress div {
+    height: 100%;
+    background: white;
+    border-radius: 3px;
   }
   
   .statsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
   }
   
-  .statItem {
+  .statCard {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
     text-align: center;
-    padding: 10px;
-    background: var(--bg-secondary);
+  }
+  
+  .statValue {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+  }
+  
+  .additionalSections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .section {
+    background: #f8f9fa;
+    padding: 1rem;
     border-radius: 8px;
   }
   
-  .statItem h3 {
-    margin: 0 0 5px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+  .graphSection {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
   }
   
-  .statItem p {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--primary);
-  }
-  
-  .loading, .error {
-    text-align: center;
-    padding: 20px;
-    color: var(--text-secondary);
+  .graphPlaceholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e9ecef;
+    border-radius: 4px;
+    color: #6c757d;
   }

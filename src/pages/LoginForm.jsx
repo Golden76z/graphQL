@@ -20,38 +20,60 @@ const LoginPage = () => {
     setError(null);
     
     try {
-      // Basic Auth encoding
-      const authString = `${identifier}:${password}`;
-      const encodedAuth = btoa(authString);
-      
-      // API request
       const response = await fetch('https://zone01normandie.org/api/auth/signin', {
         method: 'POST',
         headers: {
-          'Authorization': 'Basic ' + btoa(`${identifier}:${password}`)
+          'Authorization': 'Basic ' + btoa(`${identifier}:${password}`),
+          'Content-Type': 'application/json'
         }
       });
-      const token = await response.text(); // Get raw text, not JSON
-      
+  
       if (!response.ok) {
-        throw new Error(response.status === 401 
-          ? 'Invalid credentials' 
-          : `Login failed (Status ${response.status})`);
+        const errorText = await response.text();
+        throw new Error(response.status === 401 ? 'Invalid credentials' : 
+          errorText || `Login failed with status ${response.status}`);
       }
-
-      if (!token) throw new Error('No token received');
+  
+      // Get the raw response text
+      const responseText = await response.text();
+      console.log('Raw response:', responseText); // Debug
       
-      // Successful login
-      login(token, {
-        id: '', // Will be set via parseJwt in AuthContext
-        jwt: null // Will be populated in AuthContext
+      // Handle different response formats
+      let token;
+      try {
+        // Try parsing as JSON first
+        const jsonResponse = JSON.parse(responseText);
+        token = jsonResponse.token || jsonResponse.access_token || jsonResponse;
+      } catch {
+        // If not JSON, use raw text
+        token = responseText;
+      }
+  
+      // Clean the token
+      token = token.toString().trim();
+      
+      // Verify we actually got a token
+      if (!token) {
+        throw new Error('Empty token received from server');
+      }
+  
+      // Debug token details
+      console.log('Token details:', {
+        length: token.length,
+        startsWith: token.substring(0, 10),
+        endsWith: token.substring(token.length - 10),
+        isJWT: token.split('.').length === 3
       });
-      
+  
+      login(token);
       navigate('/profile');
-      
     } catch (err) {
       setError(err.message);
-      console.error('Login error:', err);
+      console.error('Login error:', {
+        message: err.message,
+        response: err.response,
+        stack: err.stack
+      });
     } finally {
       setIsLoading(false);
     }
