@@ -1,14 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const TEST_QUERY = gql`
-  query TestQuery {
-    user {
-      id
-      login
-    }
-  }
-`;
-
 export const FULL_STUDENT_STATS_QUERY = gql`
   query FullStudentStatsWithAttrs {
     user {
