@@ -1,7 +1,8 @@
 import Card from "../elements/components/cards/Cards";
 import styles from '../styles/components/Card.module.css'
 import GraphTimeline from "../elements/components/GraphTimeline";
-import UserStats from "../elements/graphs/UserStats";
+// import UserStats from "../elements/graphs/UserStats";
+import RatioCard from "../elements/components/cards/RatioCard";
 
 // React components for the profile page after loging in
 function ProfilePage() {
@@ -19,7 +20,8 @@ function ProfilePage() {
                     showAlternateTimelineText={true} 
                 />
 
-                <UserStats/>
+                {/* <UserStats/> */}
+                <RatioCard Given={0} Received={0}/>
             </div>
         </>
     );
