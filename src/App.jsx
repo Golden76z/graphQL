@@ -71,7 +71,6 @@ function App() {
                     <>
                       <Header />
                       <WelcomeMessage />
-                      {/* <AnimatedCardNavigation /> */}
                       <ProfilePage />
                     </>
                   </ProtectedRoute>
