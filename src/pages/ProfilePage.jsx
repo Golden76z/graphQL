@@ -21,7 +21,7 @@ function ProfilePage() {
                 />
 
                 {/* <UserStats/> */}
-                <RatioCard Given={0} Received={0}/>
+                <RatioCard Given={300} Received={150}/>
             </div>
         </>
     );
