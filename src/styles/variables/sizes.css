@@ -28,6 +28,7 @@
     --transition-slow: 0.5s;
     
     /*------------ Component Sizes ------------*/
+    --max-width-xs: 20rem;   /* 384px */
     --max-width-sm: 24rem;   /* 384px */
     --max-width-md: 28rem;   /* 448px */
     --max-width-lg: 32rem;   /* 512px */
