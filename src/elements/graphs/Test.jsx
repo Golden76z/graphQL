@@ -5,20 +5,38 @@ export const fetchUserData = async (token) => {
   try {
     // Verify token format first
     if (!token || !/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/.test(token)) {
-        throw new Error('Invalid token format');
-      }
+      throw new Error('Invalid token format');
+    }
 
+    // Using the more comprehensive query from Postman
     const query = `
-      query GetUserStats {
+      query FullStudentStats {
         user {
           id
           login
+          attrs
+          auditRatio
+          totalUp
+          totalDown
           avatarUrl
           campus
-          auditRatio
+          createdAt
           public {
             firstName
             lastName
+            profile
+          }
+          transactions(where: {type: {_eq: "xp"}}, order_by: {createdAt: asc}) {
+            id
+            type
+            amount
+            objectId
+            createdAt
+            path
+            object {
+              name
+              type
+            }
           }
           transactions_aggregate(where: {type: {_eq: "xp"}}) {
             aggregate {
@@ -27,9 +45,47 @@ export const fetchUserData = async (token) => {
               }
             }
           }
+          progresses(where: {isDone: {_eq: true}}, order_by: {updatedAt: desc}) {
+            id
+            objectId
+            grade
+            createdAt
+            updatedAt
+            path
+            object {
+              name
+              type
+            }
+          }
           progresses_aggregate(where: {isDone: {_eq: true}}) {
             aggregate {
               count
+            }
+          }
+          results(order_by: {updatedAt: desc}) {
+            id
+            objectId
+            grade
+            type
+            createdAt
+            updatedAt
+            path
+            object {
+              name
+              type
+            }
+          }
+          audits {
+            id
+            grade
+            createdAt
+          }
+          audits_aggregate {
+            aggregate {
+              count
+              sum {
+                grade
+              }
             }
           }
         }
