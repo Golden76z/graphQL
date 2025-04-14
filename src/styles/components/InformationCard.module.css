@@ -1,0 +1,67 @@
+.card {
+  width: 100%;
+  max-width: var(--max-width-xs); /* Constrain card width */
+  aspect-ratio: 2 / 1; /* Enforcing 2:1 ratio */
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: var(--transition-all-colors);
+  position: relative;
+}
+
+.card .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  text-transform: uppercase;
+}
+
+.card p, .card .info-label {
+  margin: var(--space-sm) 0;
+  color: var(--color-text);
+}
+
+.card p {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.card p:first-child {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.card .info-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+.card .info-label span {
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text);
+}
+
+.card .gender,
+.card .phone,
+.card .dob,
+.card .city,
+.card .country {
+  margin-bottom: var(--space-xs);
+}
