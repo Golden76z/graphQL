@@ -1,0 +1,59 @@
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(80px, auto);
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+}
+
+/* Tablet view - 3 columns */
+@media (max-width: 1024px) {
+    .cardGrid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(70px, auto);
+        gap: var(--space-md);
+        padding: var(--space-md) 0;
+    }
+}
+
+/* Mobile view - 1 column */
+@media (max-width: 640px) {
+    .cardGrid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(60px, auto);
+        gap: var(--space-sm);
+        padding: var(--space-sm) 0;
+    }
+}
+
+/* Different card sizes */
+.wideCard {
+    grid-column: span 2;
+}
+
+.tallCard {
+    grid-row: span 2;
+}
+
+.largeCard {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* Adjust span behavior for tablet view */
+@media (max-width: 1024px) {
+    .wideCard,
+    .largeCard {
+        grid-column: span 2;
+    }
+}
+
+/* Adjust span behavior for mobile view */
+@media (max-width: 640px) {
+    .wideCard,
+    .tallCard,
+    .largeCard {
+    grid-column: span 1;
+    grid-row: span 1;
+    }
+}

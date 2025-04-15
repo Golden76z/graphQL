@@ -1,7 +1,7 @@
 .card {
-  width: 100%;
-  max-width: var(--max-width-xs); /* Constrain card width */
-  aspect-ratio: 2 / 1; /* Enforcing 2:1 ratio */
+  /* width: 100%;
+  max-width: var(--max-width-xs);
+  aspect-ratio: 2 / 1; */
   padding: var(--space-lg);
   border-radius: var(--radius-md);
   background-color: var(--color-bg);
@@ -11,6 +11,7 @@
   justify-content: flex-start;
   transition: var(--transition-all-colors);
   position: relative;
+  border: 2px solid var(--color-accent);
 }
 
 .card .avatar {

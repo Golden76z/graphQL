@@ -10,7 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@apollo/client": "^3.13.6",
+        "@apollo/client": "^3.13.7",
         "framer-motion": "^12.6.3",
         "graphql": "^16.10.0",
         "jwt-decode": "^3.1.2",

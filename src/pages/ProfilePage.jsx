@@ -4,6 +4,7 @@ import GraphTimeline from "../elements/components/GraphTimeline";
 // import UserStats from "../elements/graphs/UserStats";
 import RatioCard from "../elements/components/cards/RatioCard";
 import InformationCard from "../elements/components/cards/InformationCard";
+import CardGrid from "../elements/components/ProfileGrid";
 
 // React components for the profile page after loging in
 function ProfilePage() {
@@ -34,10 +35,15 @@ function ProfilePage() {
 
                 {/* <UserStats/> */}
 
-                {/* Ratio card */}
-                <RatioCard Given={1.4} Received={1}/>
+                {/* Profile grid */}
+                <CardGrid columns="auto-fit" minColumnWidth="280px">
 
-                <InformationCard info={info}/>
+                    {/* Ratio card */}
+                    <RatioCard Given={1.4} Received={1}/>
+
+                    {/* Private information card */}
+                    <InformationCard info={info} className={styles.tallCard}/>
+                </CardGrid>
             </div>
         </>
     );
