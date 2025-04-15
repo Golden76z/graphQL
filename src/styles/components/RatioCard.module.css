@@ -7,7 +7,7 @@
   /* max-width: 250px; */
   box-shadow: var(--shadow-lg);
   transition: var(--transition-all-colors);
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-secondary);
 }
 
 .title {

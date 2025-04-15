@@ -1,7 +1,7 @@
 .container {
     width: 100%;
-    border: 1px solid var(--color-secondary);
-    border-radius: var(--radius-md);
+    border: 2px solid var(--color-secondary);
+    /* border-radius: var(--radius-md); */
     overflow: hidden;
     font-family: var(--font-primary);
     color: var(--color-text);

@@ -5,14 +5,14 @@
 .welcomeContainer {
     width: 100%;
     max-width: var(--max-width-xl);
-    margin: var(--space-xl) 0 var(--space-lg) var(--space-xxl); /* Left margin only */
+    margin: var(--space-md) 0 var(--space-xs) var(--space-xl);
     /* padding: 0 var(--space-md) 0 var(--space-xxl); More left padding */
     text-align: left;
 }
 
 .userGreeting, 
 .welcomeMessage {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-semibold);
     /* margin-bottom: var(--space-xl); */
     color: var(--color-text);
