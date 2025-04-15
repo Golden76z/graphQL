@@ -1,10 +1,8 @@
-/* RatioCard.module.css */
 .ratioCard {
   background-color: var(--color-bg);
   color: var(--color-text);
   padding: var(--space-sm);
   font-family: var(--font-primary);
-  /* max-width: 250px; */
   box-shadow: var(--shadow-lg);
   transition: var(--transition-all-colors);
   border: 2px solid var(--color-secondary);
@@ -26,36 +24,31 @@
 .statSection {
   display: flex;
   flex-direction: column;
-  gap: 0; /* Élimine complètement l'espace */
-  margin: 0; /* Élimine les marges */
+  gap: 0;
+  margin: 0;
 }
 
 .statRow {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  /* margin-top: 1px; Espace minimal après le label */
 }
 
 .statLabel {
   font-size: var(--font-size-xs);
   color: var(--color-text);
-  margin: 0; /* Élimine toutes les marges */
+  margin: 0; 
   line-height: 1;
-  padding: 0; /* Élimine le padding */
+  padding: 0;
 }
 
-.barContainer {
-  flex: 1;
-  height: 4px;
-  background-color: var(--color-secondary);
-  position: relative;
+.statRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
 }
 
-.bar {
-  height: 100%;
-  transition: width var(--transition-duration-normal) var(--transition-easing);
-}
 
 .statValue {
   display: flex;
@@ -86,12 +79,17 @@
 }
 
 .positive {
-  color: #4caf50; /* Green */
+  color: #4caf50;
 }
 
 .negative {
-  color: #f44336; /* Red */
+  color: #f44336;
 }
+
+.neutral {
+  background-color: transparent;
+}
+
 
 .arrowUp, .arrowDown {
   font-size: var(--font-size-xs);

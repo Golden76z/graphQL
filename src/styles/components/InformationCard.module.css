@@ -12,6 +12,9 @@
   transition: var(--transition-all-colors);
   position: relative;
   border: 2px solid var(--color-secondary);
+  grid-row: span 2;
+  /* min-height: 100%; Ensure it takes full height */
+  display: flex; /* Important for content stretching */
 }
 
 .card .avatar {

@@ -1,7 +1,8 @@
 .cardGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(80px, auto);
+    grid-template-rows: repeat(2, minmax(100px, auto));
+    grid-auto-rows: minmax(40px, auto);
     gap: var(--space-lg);
     padding: var(--space-lg) 0;
 }
@@ -33,7 +34,9 @@
 
 .tallCard {
     grid-row: span 2;
-}
+    min-height: 100%; /* Ensure it takes full height */
+    display: flex; /* Important for content stretching */
+  }
 
 .largeCard {
     grid-column: span 2;
