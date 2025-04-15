@@ -4,6 +4,7 @@ import GraphTimeline from "../elements/components/GraphTimeline";
 import RatioCard from "../elements/components/cards/RatioCard";
 import InformationCard from "../elements/components/cards/InformationCard";
 import CardGrid from "../elements/components/ProfileGrid";
+import StudentStatsComponent from "../elements/graphs/Test";
 
 import styles from '../styles/components/Card.module.css';
 
@@ -41,9 +42,11 @@ function ProfilePage() {
                     <InformationCard info={info}/>
 
                     {/* Ratio card */}
-                    <RatioCard Given={1.4} Received={1}/>
+                    <RatioCard Given={0.8} Received={1}/>
 
                 </CardGrid>
+
+                <StudentStatsComponent/>
             </div>
         </>
     );
