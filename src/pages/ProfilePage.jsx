@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from "../elements/components/cards/Cards";
 import GraphTimeline from "../elements/components/GraphTimeline";
 // import UserStats from "../elements/graphs/UserStats";
@@ -5,11 +6,22 @@ import RatioCard from "../elements/components/cards/RatioCard";
 import InformationCard from "../elements/components/cards/InformationCard";
 import CardGrid from "../elements/components/ProfileGrid";
 import StudentStatsComponent from "../elements/graphs/Test";
+import { useStudentData } from "../data/studentData";
+import { ActivityGraph } from "../elements/components/cards/ActivityGraphCard";
+import stylesStats from '../styles/components/StudentStats.module.css'
 
 import styles from '../styles/components/Card.module.css';
 
 // React components for the profile page after loging in
 function ProfilePage() {
+    const { loading, error, data } = useStudentData();
+    
+    if (loading) return <div className="loading">Loading...</div>;
+    if (error) return <div className="error">Error: {error.message}</div>;
+    if (!data) return <div className="no-data">No data available</div>;
+    
+    console.log("data: ", data);
+    
     const info = {
         firstName: "Damien",
         lastName: "Prouet",
@@ -37,16 +49,17 @@ function ProfilePage() {
 
                 {/* Profile grid */}
                 <CardGrid columns="4">
-
                     {/* Private information card */}
                     <InformationCard info={info}/>
 
                     {/* Ratio card */}
-                    <RatioCard Given={0.8} Received={1}/>
+                    <RatioCard Given={1.4} Received={1}/>
 
+                    {/* Activity Graph - Removed the extra div wrapper */}
+                    <ActivityGraph activityMap={data.activityMap} />
                 </CardGrid>
 
-                <StudentStatsComponent/>
+                
             </div>
         </>
     );

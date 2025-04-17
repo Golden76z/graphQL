@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 const FULL_STUDENT_STATS_QUERY = gql`
   query FullStudentStatsWithCompleteObjects {
@@ -333,6 +334,7 @@ const FULL_STUDENT_STATS_QUERY = gql`
 const StudentStatsComponent = () => {
   const { loading, error, data } = useQuery(FULL_STUDENT_STATS_QUERY);
   const [organizedData, setOrganizedData] = useState(null);
+  const [activityMap, setActivityMap] = useState([]);
 
   useEffect(() => {
     if (data && data.user && data.user.length > 0) {
@@ -394,7 +396,6 @@ const StudentStatsComponent = () => {
 
       // Helper function to find piscine by path or object
       const findPiscineForPathOrObject = (piscines, path, object) => {
-        // First check object name
         if (object?.name) {
           for (const [key, piscine] of Object.entries(piscines)) {
             if (object.name.toLowerCase().includes(piscine.name.toLowerCase())) {
@@ -403,7 +404,6 @@ const StudentStatsComponent = () => {
           }
         }
         
-        // Then check path
         if (path) {
           for (const [key, piscine] of Object.entries(piscines)) {
             const piscinePathSegment = piscine.name.toLowerCase().replace('piscine', '').trim();
@@ -420,11 +420,9 @@ const StudentStatsComponent = () => {
       if (userData.transactions) {
         userData.transactions.forEach(transaction => {
           if (isPiscineValidation(transaction)) {
-            // Count validation XP in cursus
             organized.cursus.xp += transaction.amount;
             organized.cursus.piscineValidations.push(transaction);
           } else {
-            // Regular transaction processing
             const piscineMatch = findPiscineForPathOrObject(
               organized.piscines,
               transaction.path,
@@ -442,131 +440,88 @@ const StudentStatsComponent = () => {
         });
       }
 
-      // Process progresses
-      if (userData.progresses) {
-        userData.progresses.forEach(progress => {
-          const piscineMatch = findPiscineForPathOrObject(
-            organized.piscines,
-            progress.path,
-            progress.object
-          );
-          if (piscineMatch) {
-            organized.piscines[piscineMatch].progresses.push(progress);
-          } else {
-            organized.cursus.progresses.push(progress);
-          }
-        });
+      // Create activity map from transactions
+      const activityData = {};
+      const now = new Date();
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+      // Initialize empty activity map
+      for (let d = new Date(sixMonthsAgo); d <= now; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        activityData[dateStr] = 0;
       }
 
-      // Process audits
-      if (userData.audits) {
-        userData.audits.forEach(audit => {
-          const piscineMatch = findPiscineForPathOrObject(
-            organized.piscines,
-            audit.group?.path,
-            audit.group?.object
-          );
-          if (piscineMatch) {
-            organized.piscines[piscineMatch].audits.push(audit);
-          } else {
-            organized.cursus.audits.push(audit);
+      // Count transactions per day
+      userData.transactions.forEach(tx => {
+        if (tx.createdAt) {
+          const dateStr = tx.createdAt.split('T')[0];
+          if (activityData[dateStr] !== undefined) {
+            activityData[dateStr]++;
           }
-        });
-      }
+        }
+      });
 
-      // Process results
-      if (userData.results) {
-        userData.results.forEach(result => {
-          const piscineMatch = findPiscineForPathOrObject(
-            organized.piscines,
-            result.path,
-            result.object
-          );
-          if (piscineMatch) {
-            organized.piscines[piscineMatch].results.push(result);
-          } else {
-            organized.cursus.results.push(result);
-          }
-        });
-      }
+      // Convert to array for rendering
+      const activityArray = Object.entries(activityData).map(([date, count]) => ({
+        date,
+        count
+      }));
 
-      // Process groups
-      if (userData.groups) {
-        userData.groups.forEach(group => {
-          const piscineMatch = findPiscineForPathOrObject(
-            organized.piscines,
-            group.group?.path,
-            group.group?.object
-          );
-          if (piscineMatch) {
-            organized.piscines[piscineMatch].groups.push(group);
-          } else {
-            organized.cursus.groups.push(group);
-          }
-        });
-      }
-
-      // Process events
-      if (userData.events) {
-        userData.events.forEach(event => {
-          const piscineMatch = findPiscineForPathOrObject(
-            organized.piscines,
-            event.event?.path,
-            event.event?.object
-          );
-          if (piscineMatch) {
-            organized.piscines[piscineMatch].events.push(event);
-          } else {
-            organized.cursus.events.push(event);
-          }
-        });
-      }
-
-      // Process matches
-      if (userData.matches) {
-        userData.matches.forEach(match => {
-          const piscineMatch = findPiscineForPathOrObject(
-            organized.piscines,
-            match.path,
-            match.object
-          );
-          if (piscineMatch) {
-            organized.piscines[piscineMatch].matches.push(match);
-          } else {
-            organized.cursus.matches.push(match);
-          }
-        });
-      }
-
+      setActivityMap(activityArray);
       setOrganizedData(organized);
     }
   }, [data]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  // Function to determine color intensity based on activity count
+  const getActivityColor = (count) => {
+    if (count === 0) return '#ebedf0';
+    if (count < 3) return '#9be9a8';
+    if (count < 5) return '#40c463';
+    if (count < 8) return '#30a14e';
+    return '#216e39';
+  };
 
-  if (!organizedData) return <div>No data available</div>;
+  // Group dates by week for display
+  const groupByWeek = (activityData) => {
+    const weeks = [];
+    let currentWeek = [];
+    
+    activityData.forEach((day, index) => {
+      const date = new Date(day.date);
+      if (date.getDay() === 0 || index === 0) { // Sunday or first day
+        if (currentWeek.length > 0) weeks.push(currentWeek);
+        currentWeek = [];
+      }
+      currentWeek.push(day);
+    });
+    
+    if (currentWeek.length > 0) weeks.push(currentWeek);
+    return weeks;
+  };
 
-  // Calculate piscine validation XP total
+  const weeks = groupByWeek(activityMap);
+
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">Error: {error.message}</div>;
+  if (!organizedData) return <div className="no-data">No data available</div>;
+
   const validationXpTotal = organizedData.cursus.piscineValidations.reduce(
     (sum, tx) => sum + tx.amount, 0
   );
 
-  // Calculate total XP excluding validations for display
   const cursusXpWithoutValidations = organizedData.cursus.xp - validationXpTotal;
 
   return (
     <div className="student-stats-container">
-      {/* Basic User Info */}
-      {data.user[0] && (
-        <div className="user-profile">
-          <img src={data.user[0].avatarUrl} alt="Profile" className="avatar" />
-          <h2>{data.user[0].public?.firstName} {data.user[0].public?.lastName}</h2>
-          <p>Login: {data.user[0].login}</p>
-          <p>Campus: {data.user[0].campus}</p>
-          <p>Member since: {new Date(data.user[0].createdAt).toLocaleDateString()}</p>
-        </div>
-      )}
+      {/* User Profile */}
+      <div className="user-profile">
+        <img src={data.user[0].avatarUrl} alt="Profile" className="avatar" />
+        <h2>{data.user[0].public?.firstName} {data.user[0].public?.lastName}</h2>
+        <p>Login: {data.user[0].login}</p>
+        <p>Campus: {data.user[0].campus}</p>
+        <p>Member since: {new Date(data.user[0].createdAt).toLocaleDateString()}</p>
+      </div>
 
       {/* Cursus Stats */}
       <div className="cursus-stats">
@@ -620,6 +575,137 @@ const StudentStatsComponent = () => {
           </div>
         ))}
       </div>
+
+      {/* Custom Activity Graph */}
+      <div className="activity-graph">
+        <h3>XP Activity (Last 6 Months)</h3>
+        <div className="graph-container">
+          <div className="week-labels">
+            {['Mon', 'Wed', 'Fri'].map(day => (
+              <div key={day} className="week-label">{day}</div>
+            ))}
+          </div>
+          <div className="weeks-container">
+            {weeks.map((week, weekIndex) => (
+              <div key={weekIndex} className="week">
+                {week.map((day, dayIndex) => (
+                  <div 
+                    key={`${weekIndex}-${dayIndex}`}
+                    className="day"
+                    style={{ backgroundColor: getActivityColor(day.count) }}
+                    data-tooltip-id="activity-tooltip"
+                    data-tooltip-content={`${day.count} activities on ${day.date}`}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <ReactTooltip id="activity-tooltip" />
+
+      <style jsx>{`
+        .student-stats-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .user-profile {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+        
+        .avatar {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          border: 3px solid #00babc;
+        }
+        
+        .cursus-stats,
+        .piscine-stats,
+        .activity-graph {
+          background: white;
+          border-radius: 8px;
+          padding: 20px;
+          margin-bottom: 20px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .piscine-section {
+          background: #f9f9f9;
+          padding: 15px;
+          border-radius: 6px;
+          margin-bottom: 15px;
+        }
+        
+        .validation-xp {
+          background: #f0f8ff;
+          padding: 15px;
+          border-radius: 6px;
+          margin-top: 15px;
+        }
+        
+        .activity-graph {
+          overflow-x: auto;
+        }
+        
+        .graph-container {
+          display: flex;
+          margin-top: 15px;
+        }
+        
+        .week-labels {
+          display: flex;
+          flex-direction: column;
+          margin-right: 5px;
+          padding-top: 22px;
+        }
+        
+        .week-label {
+          height: 15px;
+          font-size: 10px;
+          color: #767676;
+          margin-bottom: 5px;
+        }
+        
+        .weeks-container {
+          display: flex;
+        }
+        
+        .week {
+          display: flex;
+          flex-direction: column;
+          margin-right: 3px;
+        }
+        
+        .day {
+          width: 15px;
+          height: 15px;
+          margin-bottom: 3px;
+          border-radius: 2px;
+          cursor: pointer;
+        }
+        
+        .day:hover {
+          border: 1px solid rgba(0,0,0,0.5);
+        }
+        
+        .loading,
+        .error,
+        .no-data {
+          text-align: center;
+          padding: 20px;
+          font-size: 18px;
+        }
+        
+        .error {
+          color: #ff3333;
+        }
+      `}</style>
     </div>
   );
 };
