@@ -1,19 +1,17 @@
 import React from 'react';
 import Card from "../elements/components/cards/Cards";
 import GraphTimeline from "../elements/components/GraphTimeline";
-// import UserStats from "../elements/graphs/UserStats";
 import RatioCard from "../elements/components/cards/RatioCard";
 import InformationCard from "../elements/components/cards/InformationCard";
 import CardGrid from "../elements/components/ProfileGrid";
-import StudentStatsComponent from "../elements/graphs/Test";
 import { useStudentData } from "../data/studentData";
 import { ActivityGraph } from "../elements/components/cards/ActivityGraphCard";
-import stylesStats from '../styles/components/StudentStats.module.css'
-
+import { useTheme } from '../contexts/ThemeContext';
 import styles from '../styles/components/Card.module.css';
 
 // React components for the profile page after loging in
 function ProfilePage() {
+    const { darkMode } = useTheme();
     const { loading, error, data } = useStudentData();
     
     if (loading) return <div className="loading">Loading...</div>;
@@ -55,8 +53,11 @@ function ProfilePage() {
                     {/* Ratio card */}
                     <RatioCard Given={1.4} Received={1}/>
 
-                    {/* Activity Graph - Removed the extra div wrapper */}
-                    <ActivityGraph activityMap={data.activityMap} />
+                    {/* Activity Graph */}
+                    <ActivityGraph 
+                        activityMap={data.activityMap} 
+                        theme={darkMode ? 'dark' : 'light'}
+                    />
                 </CardGrid>
 
                 

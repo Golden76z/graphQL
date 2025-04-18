@@ -1,10 +1,11 @@
 import React from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import styles from '../../../styles/components/ActivityGraph.module.css'; // Create this CSS module
+import styles from '../../../styles/components/ActivityGraph.module.css';
 
 const getActivityColor = (count, theme) => {
     // Make empty squares visibly different from background
-    if (count === 0) return theme === 'dark' ? '#2d333b' : '#f0f0f0';
+    console.log(theme)
+    if (count === 0) return theme === 'dark' ? '#d4d4d4' : '#303030';
     
     if (theme === 'dark') {
     if (count < 3) return '#0e4429';
@@ -47,11 +48,6 @@ export const ActivityGraph = ({ activityMap, theme = 'light' }) => {
     <div className={styles.activityGraph}>
         <h3 className={styles.title}>XP Activity (Last 12 Months)</h3>
         <div className={styles.graphContainer}>
-        <div className={styles.weekLabels}>
-            {['Mon', 'Wed', 'Fri'].map(day => (
-            <div key={day} className={styles.weekLabel}>{day}</div>
-            ))}
-        </div>
         <div className={styles.weeksContainer}>
             {weeks.map((week, weekIndex) => (
             <div key={weekIndex} className={styles.week}>

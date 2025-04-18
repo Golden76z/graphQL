@@ -7,11 +7,11 @@
     width: 98%;
     overflow: hidden;
     grid-column: span 4;
-    border: 2px solid var(--color-secondary);
+    border: 2px solid var(--color-secondary );
 }
 
 .title {
-    color: var(--color-primary);
+    color: var(--color-text);
     margin: 0 0 var(--space-sm) 0;
     font-size: var(--font-size-lg);
     font-family: var(--font-primary);
@@ -58,7 +58,7 @@
     border-radius: var(--radius-sm);
     cursor: pointer;
     position: relative;
-    border: 1px solid transparent; /* Reserve space for border */
+    border: 1px solid transparent;
 }
 
 .day:hover {
