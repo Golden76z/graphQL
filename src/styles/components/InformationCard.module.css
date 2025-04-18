@@ -12,9 +12,12 @@
   transition: var(--transition-all-colors);
   position: relative;
   border: 2px solid var(--color-secondary);
+  /* grid-row: span 2; */
+  /* min-height: 100%; Ensure it takes full height */
+  display: flex; /* Important for content stretching */
 }
 
-.card .avatar {
+/* .card .avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -29,7 +32,7 @@
   top: var(--space-md);
   left: var(--space-md);
   text-transform: uppercase;
-}
+} */
 
 .card p, .card .info-label {
   margin: var(--space-sm) 0;
