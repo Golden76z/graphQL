@@ -7,7 +7,6 @@ function InformationCard({ info = {} }) {
 
     return (
         <div className={styles.card}> {/* Apply the CSS class */}
-            <div className={styles.avatar}>{firstLetter}</div> {/* Avatar with first letter */}
             
             <p>{info.firstName} {info.lastName}</p>
             <p>#{info.login}</p>
@@ -24,18 +23,18 @@ function InformationCard({ info = {} }) {
 
             <div className={styles['info-label']}>
                 <p>Date of birth:</p>
-                <span>{info.dateOfBirth}</span>
+                <span>{info.dateOfBirth.split("T")[0]}</span>
             </div>
 
-            <div className={styles['info-label']}>
+            {/* <div className={styles['info-label']}>
                 <p>City:</p>
-                <span>{info.addressCity} - {info.addressPostalCode}</span>
-            </div>
+                <span>{info.addressCity}</span>
+            </div> */}
 
-            <div className={styles['info-label']}>
+            {/* <div className={styles['info-label']}>
                 <p>Country:</p>
-                <span>{info.country}</span>
-            </div>
+                <span>{info.addressCountry}</span>
+            </div> */}
         </div>
     );
 }

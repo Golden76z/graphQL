@@ -1,0 +1,46 @@
+.container {
+    padding: var(--space-md);
+    background-color: var(--color-bg);
+    box-shadow: var(--shadow-md);
+    font-family: var(--font-primary);
+    color: var(--color-text);
+    grid-column: span 2;
+    border: 2px solid var(--color-secondary);
+}
+
+.title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+.graph {
+    width: 100%;
+    height: auto;
+    transition: var(--transition-all-colors);
+}
+
+.axis {
+    stroke: var(--color-secondary);
+    stroke-width: 2;
+}
+
+.dataPoint {
+    fill: var(--color-primary);
+    transition: var(--transition-transform);
+}
+
+.dataLine {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    transition: var(--transition-all-colors);
+}
+
+.noData {
+    padding: var(--space-md);
+    font-size: var(--font-size-md);
+    color: var(--color-accent);
+    font-family: var(--font-secondary);
+}

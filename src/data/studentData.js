@@ -8,6 +8,8 @@ export const useStudentData = () => {
     if (!rawData || !rawData.user || rawData.user.length === 0) return null;
     
     const userData = rawData.user[0];
+    console.log("USER DATA: ", userData);
+    
     const organized = {
       cursus: {
         xp: 0,
@@ -26,6 +28,29 @@ export const useStudentData = () => {
       piscines: {},
       activityMap: []
     };
+
+    // Add this after defining `userData`
+    const userId = userData.id;
+
+    // Process audits_as_auditor
+    if (userData.audits_as_auditor) {
+      const completedAudits = userData.audits_as_auditor
+        .filter(
+          (audit) => audit.auditor?.id === userId && audit.grade !== null
+        )
+        .sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+    
+      organized.cursus.audits = completedAudits.map((audit) => ({
+        id: audit.id,
+        grade: audit.grade,
+        createdAt: audit.createdAt,
+        updatedAt: audit.updatedAt,
+        group: audit.group
+      }));
+    }
+    
 
     // Process registrations to identify piscines
     if (userData.registrations) {

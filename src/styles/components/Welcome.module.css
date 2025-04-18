@@ -4,7 +4,6 @@
 
 .welcomeContainer {
     width: 100%;
-    max-width: var(--max-width-xl);
     margin: var(--space-md) 0 var(--space-xs) var(--space-xl);
     /* padding: 0 var(--space-md) 0 var(--space-xxl); More left padding */
     text-align: left;

@@ -180,7 +180,7 @@ export const FULL_STUDENT_STATS_QUERY = gql`
         }
       }
       
-      audits_as_auditor: audits(where: {auditorId: {_eq: 3611}}) {
+      audits_as_auditor: audits {
         id
         grade
         createdAt
@@ -199,7 +199,13 @@ export const FULL_STUDENT_STATS_QUERY = gql`
             }
           }
         }
+        auditor {
+          id
+          login
+          avatarUrl
+        }
       }
+
       
       audits_aggregate {
         aggregate {

@@ -1,0 +1,92 @@
+.cardContainer {
+    background-color: var(--color-bg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg);
+    width: 93%;
+    height: 87%;
+    overflow: hidden;
+    grid-column: span 2;
+    border: 2px solid var(--color-secondary);
+}
+
+.cardTitle {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+    font-family: var(--font-primary);
+}
+
+.transactionList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.transaction {
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg);
+    border-left: 4px solid var(--color-accent);
+    transition: var(--transition-colors);
+}
+
+.txHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xxs);
+}
+
+.txProject {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+    font-family: var(--font-primary);
+}
+
+.txDate {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    opacity: 0.7;
+}
+
+.txDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.txPath {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+    opacity: 0.7;
+    font-family: var(--font-secondary);
+}
+
+.txAmount {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-mono);
+}
+
+.noData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    color: var(--color-text);
+    opacity: 0.6;
+    font-style: italic;
+    font-family: var(--font-secondary);
+}
