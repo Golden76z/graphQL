@@ -44,3 +44,9 @@
     color: var(--color-accent);
     font-family: var(--font-secondary);
 }
+
+.axisLabel {
+    fill: var(--color-text);
+    font-family: var(--font-secondary);
+}
+  
