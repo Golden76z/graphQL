@@ -51,8 +51,58 @@ export const useStudentData = () => {
       }));
     }
     
+    // Improved piscine detection - analyze all transactions first to find piscine types
+    const piscineTypes = new Set();
+    
+    if (userData.transactions) {
+      userData.transactions.forEach(tx => {
+        const path = tx.path || "";
+        const objectName = tx.object?.name || "";
+        const objectType = tx.object?.type || "";
+        
+        // Look for piscine information in both path and object name
+        if (objectType === "piscine" || 
+            path.toLowerCase().includes("piscine") || 
+            objectName.toLowerCase().includes("piscine")) {
+          
+          // Extract piscine type from path (e.g., /rouen/div-01/piscine-js -> JS)
+          if (path.toLowerCase().includes("piscine")) {
+            const pathParts = path.split("/");
+            const piscinePart = pathParts.find(part => part.toLowerCase().includes("piscine-"));
+            
+            if (piscinePart) {
+              const piscineType = piscinePart.replace("piscine-", "").toUpperCase();
+              piscineTypes.add(`Piscine ${piscineType}`);
+            }
+          }
+          
+          // Extract from object name (e.g., "Piscine JS")
+          if (objectName.toLowerCase().includes("piscine")) {
+            piscineTypes.add(objectName);
+          }
+        }
+      });
+    }
+    
+    // Initialize piscine categories based on detected types
+    piscineTypes.forEach(piscineType => {
+      const piscineKey = piscineType.toLowerCase().replace(/\s+/g, '-');
+      organized.piscines[piscineKey] = {
+        name: piscineType,
+        startAt: null,
+        endAt: null,
+        xp: 0,
+        transactions: [],
+        progresses: [],
+        audits: [],
+        results: [],
+        groups: [],
+        events: [],
+        matches: []
+      };
+    });
 
-    // Process registrations to identify piscines
+    // Also check registrations to identify piscines
     if (userData.registrations) {
       userData.registrations.forEach(reg => {
         if (reg.registration?.object?.name) {
@@ -73,6 +123,10 @@ export const useStudentData = () => {
                 events: [],
                 matches: []
               };
+            } else {
+              // Update start/end dates if already exists
+              organized.piscines[piscineKey].startAt = reg.registration.startAt;
+              organized.piscines[piscineKey].endAt = reg.registration.endAt;
             }
           }
         }
@@ -85,42 +139,91 @@ export const useStudentData = () => {
       transaction.path?.toLowerCase().includes('piscine-validation')
     );
 
-    const findPiscineForPathOrObject = (piscines, path, object) => {
-      if (object?.name) {
+    // Improved piscine matching function
+    const findPiscineForTransaction = (piscines, transaction) => {
+      const path = transaction.path || "";
+      const objectName = transaction.object?.name || "";
+      const objectType = transaction.object?.type || "";
+      const eventPath = transaction.event?.path || "";
+      
+      // Check if this is a piscine validation (should be counted in cursus)
+      if (objectName.toLowerCase().includes('piscine') && 
+          objectType !== "exercise" && 
+          !isPiscineValidation(transaction)) {
+        return null; // Don't count as piscine XP
+      }
+      
+      // Check event path first - most reliable indicator
+      if (eventPath.toLowerCase().includes("piscine")) {
+        const pathParts = eventPath.split("/");
+        const piscinePart = pathParts.find(part => part.toLowerCase().includes("piscine-"));
+        
+        if (piscinePart) {
+          const piscineType = `piscine ${piscinePart.replace("piscine-", "").toUpperCase()}`;
+          
+          for (const [key, piscine] of Object.entries(piscines)) {
+            if (piscine.name.toLowerCase() === piscineType.toLowerCase()) {
+              return key;
+            }
+          }
+        }
+      }
+      
+      // Direct match by object type being "piscine"
+      if (objectType === "piscine") {
         for (const [key, piscine] of Object.entries(piscines)) {
-          if (object.name.toLowerCase().includes(piscine.name.toLowerCase())) {
+          if (piscine.name.toLowerCase() === objectName.toLowerCase()) {
             return key;
           }
         }
       }
       
-      if (path) {
-        for (const [key, piscine] of Object.entries(piscines)) {
-          const piscinePathSegment = piscine.name.toLowerCase().replace('piscine', '').trim();
-          if (path.toLowerCase().includes(`piscine-${piscinePathSegment}`)) {
-            return key;
+      // Match by path containing piscine identifier
+      if (path.toLowerCase().includes("piscine")) {
+        const pathParts = path.split("/");
+        const piscinePart = pathParts.find(part => part.toLowerCase().includes("piscine-"));
+        
+        if (piscinePart) {
+          const piscineType = `piscine ${piscinePart.replace("piscine-", "").toUpperCase()}`;
+          
+          for (const [key, piscine] of Object.entries(piscines)) {
+            if (piscine.name.toLowerCase() === piscineType.toLowerCase()) {
+              return key;
+            }
           }
         }
       }
+      
       return null;
     };
 
     // Process transactions
     if (userData.transactions) {
       userData.transactions.forEach(transaction => {
+        // Update transaction date info to make it more useful
+        // if (transaction.createdAt) {
+        //   transaction.dateObject = new Date(transaction.createdAt);
+        //   transaction.formattedDate = transaction.dateObject.toLocaleDateString();
+        // }
+        
         if (isPiscineValidation(transaction)) {
           organized.cursus.xp += transaction.amount;
           organized.cursus.piscineValidations.push(transaction);
         } else {
-          const piscineMatch = findPiscineForPathOrObject(
-            organized.piscines,
-            transaction.path,
-            transaction.object
-          );
+          const piscineKey = findPiscineForTransaction(organized.piscines, transaction);
           
-          if (piscineMatch) {
-            organized.piscines[piscineMatch].xp += transaction.amount;
-            organized.piscines[piscineMatch].transactions.push(transaction);
+          if (piscineKey) {
+            organized.piscines[piscineKey].xp += transaction.amount;
+            organized.piscines[piscineKey].transactions.push(transaction);
+            
+            // Update piscine date range based on transaction dates
+            const txDate = new Date(transaction.createdAt);
+            if (!organized.piscines[piscineKey].startAt || txDate < new Date(organized.piscines[piscineKey].startAt)) {
+              organized.piscines[piscineKey].startAt = transaction.createdAt;
+            }
+            if (!organized.piscines[piscineKey].endAt || txDate > new Date(organized.piscines[piscineKey].endAt)) {
+              organized.piscines[piscineKey].endAt = transaction.createdAt;
+            }
           } else {
             organized.cursus.xp += transaction.amount;
             organized.cursus.transactions.push(transaction);
@@ -140,7 +243,7 @@ export const useStudentData = () => {
         activityData[dateStr] = 0;
     }
 
-    userData.transactions.forEach(tx => {
+    userData.transactions?.forEach(tx => {
       if (tx.createdAt) {
         const dateStr = tx.createdAt.split('T')[0];
         if (activityData[dateStr] !== undefined) {
