@@ -22,7 +22,7 @@ function App() {
     <AuthProvider>
       <ApolloProvider client={client}>
         <ThemeProvider>
-          <Router>
+          <Router basename="/graphQL">
             <Routes>
               {/* Authentication page */}
               <Route
